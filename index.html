@@ -1352,5 +1352,54 @@ document.getElementById('attendanceCount').innerHTML =
         // Hide admin interface by default
         document.getElementById('adminDashboard').style.display = 'none';
     </script>
+	<!-- Attendance Section -->
+<div class="invitation-container" style="margin-top: 50px; direction: rtl;">
+    <h2 style="color: white; text-align: center; font-family: 'Cairo', sans-serif;">تأكيد الحضور</h2>
+    <form id="attendanceForm" style="text-align: center;">
+        <div style="margin: 20px 0;">
+            <input type="text" name="name" placeholder="الاسم الكامل" required 
+                   style="padding: 12px; width: 80%; border-radius: 25px; border: 2px solid var(--secondary-color); font-family: 'Cairo';">
+        </div>
+        <div style="margin: 20px 0;">
+            <input type="email" name="email" placeholder="البريد الإلكتروني (اختياري)"
+                   style="padding: 12px; width: 80%; border-radius: 25px; border: 2px solid var(--secondary-color); font-family: 'Cairo';">
+        </div>
+        <button type="submit" class="map-button" style="width: 200px; font-size: 1.1rem;">إرسال التأكيد</button>
+    </form>
+    <div id="response" style="color: white; text-align: center; margin-top: 20px; font-family: 'Cairo';"></div>
+</div>
+
+<script>
+// Add this script at the bottom
+document.getElementById('attendanceForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Replace with your Google Script URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx5q5Q7oX-4L4EwKdX8M3H1V3hJ7ZvY6Jt6Df3J2w/exec';
+    
+    const formData = new FormData(this);
+    
+    document.getElementById('response').innerHTML = "جاري الإرسال...";
+    
+    fetch(scriptURL, { 
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Network error');
+        return response.text();
+    })
+    .then(data => {
+        document.getElementById('response').innerHTML = "تم تسجيل حضورك بنجاح 🎉 شكرًا لتأكيدك!";
+        document.getElementById('attendanceForm').reset();
+    })
+    .catch(error => {
+        document.getElementById('response').innerHTML = "⚠️ حدث خطأ، يرجى المحاولة مرة أخرى لاحقًا";
+    });
+});
+</script>
 </body>
 </html>
