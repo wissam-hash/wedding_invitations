@@ -1374,7 +1374,7 @@ document.getElementById('attendanceForm').addEventListener('submit', function(e)
     e.preventDefault();
     
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzFOaEaA85wCEG4_BwmTNpTcNwyO8LU2nSwbhrQeP0EBU_hS5DnAT-mdKGJYh_-l0YN/exec';
-    const proxyURL = 'https://cors-anywhere.herokuapp.com/'; // CORS proxy
+    const proxyURL = 'https://thingproxy.freeboard.io/fetch/'; // New reliable proxy
     const formData = new FormData(this);
     
     document.getElementById('response').innerHTML = "جاري الإرسال...";
@@ -1384,7 +1384,7 @@ document.getElementById('attendanceForm').addEventListener('submit', function(e)
         body: JSON.stringify(Object.fromEntries(formData)),
         headers: {
             'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest' // Required by proxy
+            'Origin': 'https://wissam-hash.github.io' // Add your domain
         }
     })
     .then(response => {
@@ -1400,7 +1400,6 @@ document.getElementById('attendanceForm').addEventListener('submit', function(e)
     })
     .catch(error => {
         document.getElementById('response').innerHTML = "⚠️ حدث خطأ، يرجى المحاولة مرة أخرى لاحقًا";
-        console.log('Actual error:', error);
     });
 });
 </script>
