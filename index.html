@@ -1374,31 +1374,36 @@ document.getElementById('attendanceCount').innerHTML =
 document.getElementById('attendanceForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    // Replace with your Google Script URL
-   const scriptURL = 'https://script.google.com/macros/s/AKfycbzFOaEaA85wCEG4_BwmTNpTcNwyO8LU2nSwbhrQeP0EBU_hS5DnAT-mdKGJYh_-l0YN/exec';
-    
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzFOaEaA85wCEG4_BwmTNpTcNwyO8LU2nSwbhrQeP0EBU_hS5DnAT-mdKGJYh_-l0YN/exec';
     const formData = new FormData(this);
     
     document.getElementById('response').innerHTML = "جاري الإرسال...";
     
-    fetch(scriptURL, {
-    method: 'POST',
-    mode: 'no-cors',
-    body: JSON.stringify(Object.fromEntries(formData)),
-    headers: {
-        'Content-Type': 'application/json'
-    }
-})
+    fetch(scriptURL, { 
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'manual' // Add this line
+    })
     .then(response => {
-        if (!response.ok) throw new Error('Network error');
-        return response.text();
+        // Handle Google Script's redirect response
+        if (response.status === 302 || response.ok) {
+            return { success: true }; // Manual success detection
+        }
+        throw new Error('Failed to submit');
     })
     .then(data => {
         document.getElementById('response').innerHTML = "تم تسجيل حضورك بنجاح 🎉 شكرًا لتأكيدك!";
         document.getElementById('attendanceForm').reset();
+        setTimeout(() => {
+            document.getElementById('response').innerHTML = "";
+        }, 5000);
     })
     .catch(error => {
         document.getElementById('response').innerHTML = "⚠️ حدث خطأ، يرجى المحاولة مرة أخرى لاحقًا";
+        console.error('Error:', error);
     });
 });
 </script>
