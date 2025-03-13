@@ -1373,7 +1373,7 @@ document.getElementById('attendanceCount').innerHTML =
 document.getElementById('attendanceForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxwq09ojjDhDfc_tehBdJkv9RnN7zz7FDkx_q2DwsDeoPDi7hbB7Bj-UCan5P5WqjZf/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyO_Jdkj5Pd-hIVPkNH996rYw44JaCx9fsdw_1Exy-_NQRbT3DTxisRWHly4-bsyGoi/exec';
     const formData = new FormData(this);
     
     document.getElementById('response').innerHTML = "جاري الإرسال...";
@@ -1384,10 +1384,11 @@ document.getElementById('attendanceForm').addEventListener('submit', function(e)
         headers: {
             'Content-Type': 'application/json'
         },
-        redirect: 'manual'
+        redirect: 'manual',
+        mode: 'no-cors'
     })
-    .then(response => {
-        // Success if we get any response (Google returns 302)
+    .then(() => {
+        // Success - Google Script always returns 302
         document.getElementById('response').innerHTML = "تم تسجيل حضورك بنجاح 🎉 شكرًا لتأكيدك!";
         document.getElementById('attendanceForm').reset();
         setTimeout(() => {
