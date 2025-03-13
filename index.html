@@ -1373,25 +1373,21 @@ document.getElementById('attendanceCount').innerHTML =
 document.getElementById('attendanceForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzFOaEaA85wCEG4_BwmTNpTcNwyO8LU2nSwbhrQeP0EBU_hS5DnAT-mdKGJYh_-l0YN/exec';
-    const proxyURL = 'https://thingproxy.freeboard.io/fetch/'; // New reliable proxy
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxwq09ojjDhDfc_tehBdJkv9RnN7zz7FDkx_q2DwsDeoPDi7hbB7Bj-UCan5P5WqjZf/exec';
     const formData = new FormData(this);
     
     document.getElementById('response').innerHTML = "جاري الإرسال...";
     
-    fetch(proxyURL + scriptURL, { 
+    fetch(scriptURL, { 
         method: 'POST',
         body: JSON.stringify(Object.fromEntries(formData)),
         headers: {
-            'Content-Type': 'application/json',
-            'Origin': 'https://wissam-hash.github.io' // Add your domain
-        }
+            'Content-Type': 'application/json'
+        },
+        redirect: 'manual'
     })
     .then(response => {
-        if (response.ok) return response.text();
-        throw new Error('Network error');
-    })
-    .then(data => {
+        // Success if we get any response (Google returns 302)
         document.getElementById('response').innerHTML = "تم تسجيل حضورك بنجاح 🎉 شكرًا لتأكيدك!";
         document.getElementById('attendanceForm').reset();
         setTimeout(() => {
