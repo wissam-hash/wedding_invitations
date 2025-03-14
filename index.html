@@ -18,7 +18,7 @@
             padding: 0;
             min-height: 100vh;
             background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)),
-                        url('https://plus.unsplash.com/premium_photo-1664530452596-e1c17e342876?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                        url('https://images.unsplash.com/photo-1583939411023-14783179e581?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-size: cover;
             background-position: center;
             color: var(--primary-color);
@@ -1258,33 +1258,6 @@ l-127 125 6 -101z"/>
             <b>رجاءً: الدعوة خاصة للكبار فقط</b>
         </div>
 
-        <div class="rsvp-section" style="text-align: center;">
-            <h2>هل ستشاركنا فرحتنا؟</h2>
-	<a href="https://maps.app.goo.gl/UX25huUG7zBfSzif6" class="map-button" target="_blank">
-    <i class="fas fa-map-marker-alt"></i> عرض الموقع على الخريطة
-    </a>
-            <button class="map-button" onclick="showRSVPForm()">
-                <i class="fas fa-envelope"></i> تأكيد الحضور
-            </button>
-        </div>
-    </div>
-
-    <!-- Admin Dashboard -->
-    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
-        <h2>لوحة التحكم</h2>
-        <div id="attendanceCount">عدد الحضور: 0</div>
-        <div id="attendanceList" style="margin-top: 20px;"></div>
-        <button onclick="location.reload()" class="map-button1" style="margin-top: 1rem;">
-            <i class="fas fa-sign-out-alt"></i> خروج
-        </button>
-    </div>
-
-    <!-- Admin Login -->
-    <div class="password-form" id="loginForm">
-        <input type="password" id="password" placeholder="Only Admins" class="map-button2" >
-        <button onclick="checkPassword()" class="map-button1">
-            <i class="fas fa-unlock"></i> دخول
-        </button>
     </div>
 
     <script>
@@ -1352,20 +1325,24 @@ document.getElementById('attendanceCount').innerHTML =
         // Hide admin interface by default
         document.getElementById('adminDashboard').style.display = 'none';
     </script>
+	
 	<!-- Attendance Section -->
 <div class="invitation-container" style="margin-top: 50px; direction: rtl;">
     <h2 style="color: white; text-align: center; font-family: 'Cairo', sans-serif;">تأكيد الحضور</h2>
     <form id="attendanceForm" style="text-align: center;">
         <div style="margin: 20px 0;">
             <input type="text" name="name" placeholder="الاسم الكامل" required 
-                   style="padding: 12px; width: 80%; border-radius: 25px; border: 2px solid var(--secondary-color); font-family: 'Cairo';">
+                   style="padding: 12px; width: 80%; border-radius: 25px; border: 2px solid var(--secondary-color); text-align: center; font-family: 'Cairo';">
         </div>
         <div style="margin: 20px 0;">
-            <input type="email" name="email" placeholder="البريد الإلكتروني (اختياري)"
-                   style="padding: 12px; width: 80%; border-radius: 25px; border: 2px solid var(--secondary-color); font-family: 'Cairo';">
+            <input name="email" placeholder="عدد المرافقين" required
+                   style="padding: 12px; width: 80%; border-radius: 25px; border: 2px solid var(--secondary-color); text-align: center; font-family: 'Cairo';">
         </div>
         <button type="submit" class="map-button" style="width: 200px; font-size: 1.1rem;">إرسال التأكيد</button>
-    </form>
+	<a href="https://maps.app.goo.gl/UX25huUG7zBfSzif6" class="map-button" style="width: 200px; font-size: 1.1rem; target="_blank">
+    <i class="fas fa-map-marker-alt"></i> عرض الخريطة
+    </a>
+	</form>
     <div id="response" style="color: white; text-align: center; margin-top: 20px; font-family: 'Cairo';"></div>
 </div>
 
