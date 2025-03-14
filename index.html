@@ -1335,46 +1335,43 @@ document.getElementById('attendanceCount').innerHTML =
                    style="padding: 12px; width: 80%; border-radius: 25px; border: 2px solid var(--secondary-color); text-align: center; font-family: 'Cairo';">
         </div>
         <div style="margin: 20px 0;">
-            <input name="email" placeholder="عدد المرافقين" required
+            <input type="number" name="email" placeholder="عدد المرافقين" required
+                   style="padding: 12px; width: 80%; border-radius: 25px; border: 2px solid var(--secondary-color); text-align: center; font-family: 'Cairo';">
+        </div>
+        <div style="margin: 20px 0;">
+            <input type="text" name="text" placeholder="اترك لنا رسالة"
                    style="padding: 12px; width: 80%; border-radius: 25px; border: 2px solid var(--secondary-color); text-align: center; font-family: 'Cairo';">
         </div>
         <button type="submit" class="map-button" style="width: 200px; font-size: 1.1rem;">إرسال التأكيد</button>
-	<a href="https://maps.app.goo.gl/UX25huUG7zBfSzif6" class="map-button" style="width: 200px; font-size: 1.1rem; target="_blank">
-    <i class="fas fa-map-marker-alt"></i> عرض الخريطة
-    </a>
-	</form>
+        <a href="https://maps.app.goo.gl/UX25huUG7zBfSzif6" class="map-button" style="width: 200px; font-size: 1.1rem;" target="_blank">
+            <i class="fas fa-map-marker-alt"></i> عرض الخريطة
+        </a>
+    </form>
     <div id="response" style="color: white; text-align: center; margin-top: 20px; font-family: 'Cairo';"></div>
 </div>
 
 <script>
-// Add this script at the bottom
 document.getElementById('attendanceForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    // Replace with your Google Script URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxMZpkXeounnvfK_1mMykiHsKyJQidWm6x9gvxmnSL45ZXZLQVf48TSP7-WI5Bklwk/exec';
-    
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz94OwsCYtI6HVelTXMVtL8AGAOYLvTzaIRr0htE1FgYx8JXZkSGsLX2c9dc06y2X8g/exec';
     const formData = new FormData(this);
     
     document.getElementById('response').innerHTML = "جاري الإرسال...";
     
-fetch(scriptURL, {
-    method: 'POST',
-    mode: 'no-cors',
-    body: JSON.stringify(Object.fromEntries(formData)),
-    headers: {
-        'Content-Type': 'application/json'
-    }
-})
-    .then(response => {
-        if (!response.ok) throw new Error('Network error');
-        return response.text();
+    fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
-    .then(data => {
+    .then(() => {
         document.getElementById('response').innerHTML = "تم تسجيل حضورك بنجاح 🎉 شكرًا لتأكيدك!";
         document.getElementById('attendanceForm').reset();
     })
-    .catch(error => {
+    .catch(() => {
         document.getElementById('response').innerHTML = "تم تسجيل حضورك بنجاح 🎉 شكرًا لتأكيدك!";
     });
 });
